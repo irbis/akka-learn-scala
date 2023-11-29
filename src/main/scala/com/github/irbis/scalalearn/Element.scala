@@ -25,7 +25,7 @@ abstract class Element {
     )
   }
 
-  def widen(w: Int): Element =
+  private def widen(w: Int): Element =
     if (w <= width) this
     else {
       val left = elem(' ', (w - width) / 2, height)
@@ -33,7 +33,7 @@ abstract class Element {
       left beside this beside right
     }
 
-  def heighten(h: Int): Element =
+  private def heighten(h: Int): Element =
     if (h <= height) this
     else {
       val top = elem(' ', width, (h - height) / 2)
