@@ -31,7 +31,7 @@ abstract class Element {
       val left = elem(' ', (w - width) / 2, height)
       val right = elem(' ', w - width - left.width, height)
       left beside this beside right
-    }
+    } ensuring (w <= _.width)
 
   private def heighten(h: Int): Element =
     if (h <= height) this
@@ -59,6 +59,9 @@ object Element {
                               override val width: Int,
                               override val height: Int
                               ) extends Element {
+    require(width >= 0)
+    require(height >= 0)
+
     private val line = ch.toString * width
 
     def contents: Array[String] = Array.fill(height)(line)
