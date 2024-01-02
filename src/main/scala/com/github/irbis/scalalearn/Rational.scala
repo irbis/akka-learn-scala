@@ -64,4 +64,12 @@ class Rational(n: Int, d: Int) extends Ordered [Rational] { // n and d are param
 
   override def compare(that: Rational): Int =
     (this.numer * that.denom) - (that.numer * this.denom)
+
+}
+
+object Rational {
+
+  // type transformation
+  implicit def intToRational(x: Int) = new Rational(x, 1)
+
 }

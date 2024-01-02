@@ -7,4 +7,5 @@ object RationalRunTest extends App {
   println(s"$half < $third = ${half < third}")
   println(s"$half > $third = ${half > third}")
 
+  println(1 + half)
 }
