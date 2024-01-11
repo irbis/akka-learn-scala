@@ -8,4 +8,9 @@ object RationalRunTest extends App {
   println(s"$half > $third = ${half > third}")
 
   println(1 + half)
+
+  val five = new Rational(1, 5)
+  val five2 = new Rational(1, 5)
+
+  println(five == five2)
 }

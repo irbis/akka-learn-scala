@@ -1,6 +1,7 @@
 package com.github.irbis.scalalearn
 
 import scala.annotation.tailrec
+import scala.language.implicitConversions
 
 class Rational(n: Int, d: Int) extends Ordered [Rational] { // n and d are parameters of class
   // parameter check - throws IllegalArgumentException in case
@@ -18,7 +19,8 @@ class Rational(n: Int, d: Int) extends Ordered [Rational] { // n and d are param
   def this(n: Int) = this(n, 1)
 
   // toString override
-  override def toString = s"$numer/$denom"
+  override def toString: String =
+    if (denom == 1) numer.toString else s"$numer/$denom"
 
   // private function definition
   @tailrec
@@ -65,11 +67,24 @@ class Rational(n: Int, d: Int) extends Ordered [Rational] { // n and d are param
   override def compare(that: Rational): Int =
     (this.numer * that.denom) - (that.numer * this.denom)
 
+  override def equals(other: Any): Boolean =
+    other match {
+      case that: Rational =>
+        (that canEqual this) &&
+        numer == that.numer &&
+        denom == that.denom
+      case _ => false
+    }
+
+  def canEqual(other: Rational): Boolean =
+    other.isInstanceOf[Rational]
+
+  override def hashCode(): Int = (numer, denom).##
 }
 
 object Rational {
 
   // type transformation
-  implicit def intToRational(x: Int) = new Rational(x, 1)
+  implicit def intToRational(x: Int): Rational = new Rational(x, 1)
 
 }
